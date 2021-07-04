@@ -43,6 +43,9 @@
 				<div class="head" v-bind:style="{ left: 100 * trackProgress + '%' }"></div>
 			</div>
 			<div v-if="currentTrack" class="trackDuration">{{ formattedPlaybackTime }}</div>
+			<div class="trackInfo">
+				<div class="detailed" v-html="trackInfoDetailed"></div>
+			</div>
 		</div>
 	</div>
 </template>
@@ -125,6 +128,51 @@ export default {
 			}
 			if (track.track_number) {
 				result += " #" + track.track_number;
+			}
+			return result;
+		},
+		trackInfoDetailed() {
+			const track = this.currentTrack;
+			let result = "";
+			if (track.title) {
+				result += "<b>Title:</b>" + track.title + " ";
+			}
+			if (track.album) {
+				result += "<b>Album:</b>" + track.album + " ";
+			}
+			if (track.artist) {
+				result += "<b>Artist:</b>" + track.artist + " ";
+			}
+			if (track.composer) {
+				result += "<b>Composer:</b>" + track.composer + " ";
+			}
+			if (track.lyricist) {
+				result += "<b>Lyricist:</b>" + track.lyricist + " ";
+			}
+			if (track.genre) {
+				result += "<b>Genre:</b>" + track.genre + " ";
+			}
+			if (track.album_artist) {
+				result += "<b>Album Artist:</b>" + track.album_artist + " ";
+			}
+
+			if (track.year) {
+				result += "<br><b>Year:</b>" + track.year + " ";
+			}
+			if (track.category) {
+				result += "<b>Category:</b>" + track.category + " ";
+			}
+			if (track.copyright) {
+				result += "<b>Label:</b>" + track.copyright + " ";
+			}
+			if (track.track_number) {
+				result += "<b>Track:</b>" + track.track_number + " ";
+			}
+			if (track.disc_number) {
+				result += "<b>Disc:</b>" + track.disc_number + " ";
+			}
+			if (track.duration) {
+				result += "<b>Duration:</b>" + track.duration + " ";
 			}
 			return result;
 		},
@@ -479,6 +527,10 @@ audio {
 	font-size: 0.875rem;
 }
 
+.trackInfo .detailed {
+	font-weight: bold;
+	font-size: 0.875rem;
+}
 .seekBar {
 	width: 100%;
 	background-color: var(--theme-foreground-muted);
