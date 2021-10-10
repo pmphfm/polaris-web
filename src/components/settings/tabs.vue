@@ -19,7 +19,9 @@ export default {
 			this.tabs.push({ name: "Collection", path: "collection" });
 			this.tabs.push({ name: "Users", path: "users" });
 			this.tabs.push({ name: "Dynamic DNS", path: "ddns" });
+			this.tabs.push({ name: "RJ Admin", path: "rj_admin" });
 		}
+		this.tabs.push({ name: "RJ User", path: "rj_user" });
 		this.updateCurrentTab();
 	},
 

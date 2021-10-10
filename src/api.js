@@ -42,6 +42,20 @@ export default {
 		return "api/audio/" + encodeURIComponent(path) + "?auth_token=" + getAuthToken();
 	},
 
+	makeAnnouncementURL(prev, next, next_next) {
+		var url = "api/rj/songs?";
+		if (prev) {
+			url = url + "prev=" + encodeURIComponent(prev);
+		}
+		if (next) {
+			url = url + "&next=" + encodeURIComponent(next);
+		}
+		if (next_next) {
+			url = url + "&next_next=" + encodeURIComponent(next_next);
+		}
+		return url + "&auth_token=" + getAuthToken();
+	},
+
 	makeThumbnailURL(path) {
 		return "api/thumbnail/" + encodeURIComponent(path) + "?pad=false&auth_token=" + getAuthToken();
 	},
@@ -154,6 +168,36 @@ export default {
 
 	putDDNSConfig(config) {
 		return request("/ddns", {
+			method: "PUT",
+			body: JSON.stringify(config),
+			headers: {
+				"Content-Type": "application/json"
+			}
+		});
+	},
+
+	getRjUserSettings() {
+		return request("/rj/user_settings")
+			.then(res => res.json());
+	},
+
+	putRjUserSettings(config) {
+		return request("/rj/user_settings", {
+			method: "PUT",
+			body: JSON.stringify(config),
+			headers: {
+				"Content-Type": "application/json"
+			}
+		});
+	},
+
+	getRjAdminSettings() {
+		return request("/rj/admin_settings")
+			.then(res => res.json());
+	},
+
+	putRjAdminSettings(config) {
+		return request("/rj/admin_settings", {
 			method: "PUT",
 			body: JSON.stringify(config),
 			headers: {

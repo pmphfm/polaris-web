@@ -22,6 +22,10 @@
 						<option value="repeat-all">Repeat All</option>
 					</select>
 				</span>
+				<span class="enableRj">
+					RJ: <input type="checkbox" data-cy="enableRj" v-model="localEnableRj" @change="setEnableRj" />
+				</span>
+
 				<div data-cy="playlist-duration" class="totalDuration" v-if="duration > 0" v-bind:style="{ right: scrollbarWidth + 'px' }">{{ formatPlaylistDuration(duration) }}</div>
 			</div>
 		</div>
@@ -77,7 +81,7 @@ export default {
 
 	computed: {
 		...mapState(["playlist"]),
-		currentTrackRaw: function() {
+		currentTrackRaw: function () {
 			return toRaw(this.playlist.currentTrack);
 		},
 		playbackOrder: {
@@ -88,7 +92,7 @@ export default {
 				return this.playlist.playbackOrder;
 			},
 		},
-		firstRenderedIndex: function() {
+		firstRenderedIndex: function () {
 			return 2 * Math.floor(this.numScrolledTracks / 2); // Preserve odd/even row indices
 		},
 		visibleTracks: function () {
@@ -108,6 +112,9 @@ export default {
 				}
 				return acc + durationInSeconds;
 			}, 0);
+		},
+		localEnableRj: function () {
+			return this.playlist.enableRj;
 		},
 	},
 
@@ -233,6 +240,11 @@ export default {
 		formatPlaylistDuration(durationInSeconds) {
 			return Format.longDuration(durationInSeconds);
 		},
+
+		setEnableRj(enable) {
+			console.log("updating rj");
+			this.$store.dispatch("playlist/setEnableRj", !this.localEnableRj);
+		},
 	},
 };
 </script>
@@ -266,6 +278,13 @@ export default {
 }
 
 .playlistDetails span.playbackOrder {
+	color: var(--theme-foreground-muted);
+	font-size: 0.875rem;
+	align-self: center;
+}
+
+.playlistDetails span.enableRj {
+	padding-left: 8px;
 	color: var(--theme-foreground-muted);
 	font-size: 0.875rem;
 	align-self: center;

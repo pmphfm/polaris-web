@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory  } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 
 import Store from "/src/store/store"
 import App from './components/app'
@@ -16,6 +16,8 @@ import SettingsCollection from './components/settings/sections/collection'
 import SettingsDDNS from './components/settings/sections/ddns'
 import SettingsPreferences from './components/settings/sections/preferences'
 import SettingsUsers from './components/settings/sections/users'
+import SettingsRjAdmin from './components/settings/sections/rj_admin'
+import SettingsRjUser from './components/settings/sections/rj_user'
 
 const extractVFSPath = route => {
 	const path = (route.params.pathMatch || []).join("/") + (route.hash || "");
@@ -49,7 +51,9 @@ const routes = [
 					{ path: 'collection', component: SettingsCollection },
 					{ path: 'ddns', component: SettingsDDNS },
 					{ path: 'users', component: SettingsUsers },
-					{ path: ':pathMatch(.*)*', component: SettingsPreferences }
+					{ path: ':pathMatch(.*)*', component: SettingsPreferences },
+					{ path: 'rj_admin', component: SettingsRjAdmin },
+					{ path: 'rj_user', component: SettingsRjUser }
 				]
 			},
 			{ path: ':pathMatch(.*)', component: NotFound }

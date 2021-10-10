@@ -88,6 +88,10 @@ export default {
 			if (!this.currentTrack) {
 				return null;
 			}
+			if (this.currentTrack.isAnnouncement) {
+			  return API.makeAnnouncementURL(this.currentTrack.prev , this.currentTrack.next,
+				    this.currentTrack.next_next);
+			}
 			return API.makeAudioURL(this.currentTrack.path);
 		},
 
